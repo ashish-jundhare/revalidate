@@ -1,13 +1,355 @@
 {
-  "response": [
+  "uuid": "1993b7fc-02c3-4681-8524-86a982d2f561",
+  "lastMigration": 27,
+  "name": "Demo API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
     {
-      "Status": 200,
-      "Success": true,
-
-      "Message": "string",
-      "Data": {
-        "amount_deposited": "100.00"
-      }
+      "uuid": "b3d1bb3d-f2b9-4fea-85d1-88c3ab75b3b1",
+      "type": "crud",
+      "documentation": "Endpoint performing CRUD operations on a data bucket",
+      "method": "",
+      "endpoint": "revalidate",
+      "responses": [
+        {
+          "uuid": "1cf9c16f-def3-45ec-bfb9-0e4999d68f38",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "jprh",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "0865450f-9871-4fcf-a30b-ff93c53d0b91",
+      "type": "http",
+      "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+      "method": "get",
+      "endpoint": "bank_url/revalidate",
+      "responses": [
+        {
+          "uuid": "04443a89-affe-4d58-9e67-681b04cc442f",
+          "body": "{\n \"Status\": 200,\n \"Success\": true,\n \"Message\": \"string\",\n \"Data\": {\n \"amount_deposited\": \"100.00\"\n }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Creates 10 random users, or the amount specified in the 'total' query param",
+          "headers": [
+            { "key": "username", "value": "gxiUsername" },
+            { "key": "password", "value": "gxiPassword" }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "bank_seq_id",
+              "value": "bankseq00001",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "header",
+              "modifier": "username",
+              "value": "gxiUsername",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "header",
+              "modifier": "password",
+              "value": "gxiPassword",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": true,
+          "default": true
+        },
+        {
+          "uuid": "a19ed7ee-9e81-45c3-93ef-4c18306a1568",
+          "body": "{\n \"Status\": 401,\n \"Success\": false,\n \"Message\": \"Unauthorized\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Creates 10 random users, or the amount specified in the 'total' query param (copy)",
+          "headers": [
+            { "key": "username", "value": "gxiUsername" },
+            { "key": "password", "value": "gxiPassword" }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "username",
+              "value": "gxiUsername",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "header",
+              "modifier": "password",
+              "value": "gxiPassword",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": true,
+          "default": false
+        },
+        {
+          "uuid": "24f2ad8f-f1dd-4a62-a8d2-9f8e3176073f",
+          "body": "{\r\n \"Status\": 404,\r\n \"Success\": false,\r\n \"Message\": \"Not Found\",\r\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Creates 10 random users, or the amount specified in the 'total' query param (copy)",
+          "headers": [
+            { "key": "username", "value": "gxiUsername" },
+            { "key": "password", "value": "gxiPassword" },
+            { "key": "bank_seq_id", "value": "bankseq00001" }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "bank_seq_id",
+              "value": "bankseq00001",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": true,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "a56df3b2-7a46-4eb5-ac5b-bb5d27d3d96f",
+      "type": "http",
+      "documentation": "Use multiple responses with rules",
+      "method": "post",
+      "endpoint": "content/:param1",
+      "responses": [
+        {
+          "uuid": "9f00b4f3-1c07-49f6-a183-992441e729f2",
+          "body": "{\n \"Rules example\": \"Default response. Served if route param 'param1' is not present.\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Default response",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "ce143fee-a87a-473b-8149-3c1416e0ae99",
+          "body": "{\n \"Rules example\": \"Content XYZ. Served if route param 'param1' equals 'xyz'. (See in 'Rules' tab)\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Content XYZ",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "param1",
+              "value": "xyz",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "6921e926-edbf-484e-9fbc-a04b46cdf291",
+          "body": "{\n \"Rules example\": \"Content not found. Served if route param 'param1' is not equal to 'xyz'. (See in 'Rules' tab)\"\n}\n",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Content not found",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "param1",
+              "value": "^(?!.*xyz).*$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "15d47444-6fc6-4831-a3f3-4de3136e27d8",
+      "type": "http",
+      "documentation": "Serve a file dynamically depending on the path param 'pageName'.",
+      "method": "get",
+      "endpoint": "file/:pageName",
+      "responses": [
+        {
+          "uuid": "600a6c55-2d60-436f-954c-63ca8d43b550",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Templating is also supported in file path",
+          "headers": [{ "key": "Content-Type", "value": "text/html" }],
+          "bodyType": "INLINE",
+          "filePath": "./page{{urlParam 'pageName'}}.html",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "4945c56b-4e58-4bc9-8d89-613cef3401dc",
+      "type": "http",
+      "documentation": "Path supports various patterns",
+      "method": "put",
+      "endpoint": "path/with/pattern(s)?/*",
+      "responses": [
+        {
+          "uuid": "e327cd42-f682-49dc-8995-159f9ba088c4",
+          "body": "The current path will match the following routes: \nhttp://localhost:3000/path/with/pattern/\nhttp://localhost:3000/path/with/patterns/\nhttp://localhost:3000/path/with/patterns/anything-else\n\nLearn more about Mockoon's routing: https://mockoon.com/docs/latest/routing",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [{ "key": "Content-Type", "value": "text/plain" }],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "8f8f26b4-e778-4b8c-83af-da32b6851c69",
+      "type": "http",
+      "documentation": "Can Mockoon forward or record entering requests?",
+      "method": "get",
+      "endpoint": "forward-and-record",
+      "responses": [
+        {
+          "uuid": "3946bc65-f450-4055-bd34-5da536844d6b",
+          "body": "Mockoon can also act as a proxy and forward all entering requests that are not caught by declared routes. \nYou can activate this option in the environment settings ('cog' icon in the upper right corner). \nTo learn more: https://mockoon.com/docs/latest/proxy-mode\n\nAs always, all entering requests, and responses from the proxied server will be recorded ('clock' icon in the upper right corner).\nTo learn more: https://mockoon.com/docs/latest/requests-logging",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [{ "key": "Content-Type", "value": "text/plain" }],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    { "type": "route", "uuid": "b3d1bb3d-f2b9-4fea-85d1-88c3ab75b3b1" },
+    { "type": "route", "uuid": "0865450f-9871-4fcf-a30b-ff93c53d0b91" },
+    { "type": "route", "uuid": "a56df3b2-7a46-4eb5-ac5b-bb5d27d3d96f" },
+    { "type": "route", "uuid": "15d47444-6fc6-4831-a3f3-4de3136e27d8" },
+    { "type": "route", "uuid": "4945c56b-4e58-4bc9-8d89-613cef3401dc" },
+    { "type": "route", "uuid": "8f8f26b4-e778-4b8c-83af-da32b6851c69" }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    { "key": "Content-Type", "value": "application/json" },
+    { "key": "", "value": "" }
+  ],
+  "proxyReqHeaders": [{ "key": "", "value": "" }],
+  "proxyResHeaders": [{ "key": "", "value": "" }],
+  "data": [
+    {
+      "uuid": "9a8aaa39-63a9-45fe-8a87-3dd048a07ed3",
+      "id": "jprh",
+      "name": "Users",
+      "documentation": "",
+      "value": "[\n {{#repeat 50}}\n {\n \"id\": \"{{faker 'datatype.uuid'}}\",\n \"username\": \"{{faker 'internet.userName'}}\"\n }\n {{/repeat}}\n]"
     }
   ]
 }
