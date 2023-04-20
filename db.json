@@ -1,13 +1,13 @@
-{
-  "response": [
-    {
-      "Status": 200,
-      "Success": true,
+// {
+//   "response": [
+//     {
+//       "Status": 200,
+//       "Success": true,
 
-      "Message": "string",
-      "Data": {
-        "amount_deposited": "100.00"
-      }
-    }
-  ]
-}
+//       "Message": "string",
+//       "Data": {
+//         "amount_deposited": "100.00"
+//       }
+//     }
+//   ]
+// }
